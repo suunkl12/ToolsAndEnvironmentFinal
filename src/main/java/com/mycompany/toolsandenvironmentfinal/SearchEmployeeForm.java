@@ -8,6 +8,7 @@ package com.mycompany.toolsandenvironmentfinal;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Vector;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -49,6 +50,7 @@ public class SearchEmployeeForm extends javax.swing.JFrame {
         btnSearchClose = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
         btnEdit = new javax.swing.JButton();
+        btnDetail = new javax.swing.JButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -112,10 +114,18 @@ public class SearchEmployeeForm extends javax.swing.JFrame {
 
         btnEdit.setText("Edit");
 
+        btnDetail.setText("Detail");
+        btnDetail.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDetailActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane2)
             .addGroup(layout.createSequentialGroup()
                 .addGap(69, 69, 69)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -127,7 +137,9 @@ public class SearchEmployeeForm extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(tfSearchFullName, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(28, 28, 28)
-                        .addComponent(btnSearch)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnDetail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addGap(44, 44, 44)
                 .addComponent(btnDelete)
                 .addGap(31, 31, 31)
@@ -135,7 +147,6 @@ public class SearchEmployeeForm extends javax.swing.JFrame {
                 .addGap(45, 45, 45)
                 .addComponent(btnSearchClose)
                 .addGap(27, 27, 27))
-            .addComponent(jScrollPane2)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -152,7 +163,9 @@ public class SearchEmployeeForm extends javax.swing.JFrame {
                     .addComponent(btnSearchClose, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnDelete)
                     .addComponent(btnEdit))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 82, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnDetail)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -205,6 +218,23 @@ public class SearchEmployeeForm extends javax.swing.JFrame {
         tfSearchCode.setText(tfEmpTable.getValueAt(tfEmpTable.getSelectedRow(),0).toString());
     }//GEN-LAST:event_tfEmpTableMouseClicked
 
+    private void btnDetailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDetailActionPerformed
+        // TODO add your handling code here:
+        if (tfEmpTable.getSelectedRow() == -1)
+        {
+            JOptionPane.showMessageDialog(this,"No rows selected","Message",JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+         ArrayList<String> employeeDetails = new ArrayList<>();
+         for ( int  i= 0; i< 6;i++){
+             employeeDetails.add(tfEmpTable.getValueAt(tfEmpTable.getSelectedRow(),i).toString());
+         }
+         new AddNewEmployeeForm(employeeDetails).setVisible(true);
+         this.dispose();
+         
+         
+    }//GEN-LAST:event_btnDetailActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -212,6 +242,7 @@ public class SearchEmployeeForm extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDelete;
+    private javax.swing.JButton btnDetail;
     private javax.swing.JButton btnEdit;
     private javax.swing.JButton btnSearch;
     private javax.swing.JButton btnSearchClose;
